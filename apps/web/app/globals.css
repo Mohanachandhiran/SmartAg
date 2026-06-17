@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Brand - Deep Forest Authority */
+  --color-brand-900: #0A1F12;
+  --color-brand-800: #132E1C;
+  --color-brand-700: #1A4D2E;
+  --color-brand-600: #2D6B42;
+  --color-brand-500: #3D8B5A;
+  --color-brand-400: #52A874;
+
+  /* Accent - Harvest Gold */
+  --color-gold-500: #F5A623;
+  --color-gold-400: #F7B84B;
+  --color-gold-300: #FACA72;
+  --color-gold-200: #FDE6B8;
+  --color-gold-100: #FEF4DE;
+
+  /* Soil - Warm Neutrals */
+  --color-soil-900: #1C1510;
+  --color-soil-700: #3D2E20;
+  --color-soil-500: #6B4F35;
+  --color-soil-300: #C4A882;
+  --color-soil-100: #F2EBE0;
+
+  /* Surface */
+  --color-surface-warm: #FAF7F2;
+  --color-surface-card: #FFFFFF;
+  --color-surface-dark: #0D1F15;
+
+  /* Semantic */
+  --color-risk-high: #E53E3E;
+  --color-risk-medium: #DD6B20;
+  --color-risk-low: #38A169;
+  --color-data-blue: #3182CE;
+  --color-data-purple: #6B46C1;
+
+  /* Typography */
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Theme mappings for standard utilities */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(10,31,18,0.06), 0 4px 16px rgba(10,31,18,0.04);
+  --shadow-float: 0 8px 32px rgba(10,31,18,0.12), 0 2px 8px rgba(10,31,18,0.08);
+  --shadow-glow-gold: 0 0 0 3px rgba(245,166,35,0.25);
+  --shadow-glow-green: 0 0 0 3px rgba(61,139,90,0.25);
+  --shadow-agri: 0 10px 20px rgba(26, 77, 46, 0.08), 0 4px 6px rgba(26, 77, 46, 0.04);
+}
+
+:root {
+  --background: #FAF7F2;
+  --foreground: #1C1510;
+  --card: #FFFFFF;
+  --card-foreground: #1C1510;
+  --primary: #1A4D2E;
+  --primary-foreground: #FAF7F2;
+  --accent: #F5A623;
+  --accent-foreground: #1C1510;
+  --muted: #F2EBE0;
+  --muted-foreground: #6B4F35;
+  --border: #C4A882;
+  --surface-warm: #FAF7F2;
+}
+
+.dark {
+  --background: #0A130E;
+  --foreground: #F2EBE0;
+  --card: #132E1C;
+  --card-foreground: #FAF7F2;
+  --primary: #2D6B42;
+  --primary-foreground: #FAF7F2;
+  --accent: #F7B84B;
+  --accent-foreground: #0D1F15;
+  --muted: #1A4D2E;
+  --muted-foreground: #C4A882;
+  --border: #1A4D2E;
+  --surface-warm: #0A130E;
+}
+
+body {
+  background: linear-gradient(135deg, var(--background) 0%, var(--muted) 150%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+}
+
+code, pre, .mono {
+  font-family: var(--font-mono);
+}
+
+/* Animations & glassmorphism utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass {
+  background: rgba(10, 31, 18, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pulse-amber {
+  box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.7);
+  animation: orbit-pulse 2s infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.7; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes orbit-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(245,166,35,0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(245,166,35,0); }
+  100% { box-shadow: 0 0 0 0 rgba(245,166,35,0); }
+}
+
+@keyframes live-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(56,161,105,0.5); }
+  70% { box-shadow: 0 0 0 6px rgba(56,161,105,0); }
+}
+.badge-live { animation: live-pulse 2s infinite; }
+
+/* Market ticker scroll animation */
+@keyframes marquee {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: inline-flex;
+  animation: marquee 28s linear infinite;
+  min-width: 200%;
+}
+
+/* Tab numeric figures */
+.tabnum {
+  font-variant-numeric: tabular-nums;
+  font-family: var(--font-mono);
+}
+

@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  role         String   @default("FARMER") // FARMER, FPO, BUYER, GOVT
+  name         String
+  passwordHash String
+  language     String   @default("en")
+  location     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  cropRequests CropRequest[] @relation("FarmerRequests")
+  farmerGroups FarmerGroup[] @relation("FpoGroups")
+  bids         Bid[]         @relation("BuyerBids")
+  transactions Transaction[] @relation("BuyerTransactions")
+}
+
+model CropRequest {
+  id           String            @id @default(uuid())
+  farmerId     String
+  farmer       User              @relation("FarmerRequests", fields: [farmerId], references: [id])
+  cropType     String
+  quantity     Float
+  qualityGrade String
+  harvestDate  DateTime
+  location     String?
+  status       String            @default("PENDING_ANALYSIS") // PENDING_ANALYSIS, ANALYZED, WAITING_FOR_SELL_DATE, WAITING_FOR_FPO, GROUPED
+  groupId      String?
+  group        FarmerGroup?      @relation(fields: [groupId], references: [id])
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+}
+
+model FarmerGroup {
+  id            String            @id @default(uuid())
+  fpoId         String
+  fpo           User              @relation("FpoGroups", fields: [fpoId], references: [id])
+  cropType      String
+  totalQuantity Float
+  status        String            @default("GROUP_SUGGESTED") // GROUP_SUGGESTED, GROUP_CONFIRMED
+  requests      CropRequest[]
+  listing       MarketplaceListing?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+}
+
+model MarketplaceListing {
+  id          String         @id @default(uuid())
+  groupId     String         @unique
+  group       FarmerGroup    @relation(fields: [groupId], references: [id])
+  pickupDate  DateTime
+  status      String         @default("OPEN_FOR_BIDDING") // OPEN_FOR_BIDDING, BUYER_SELECTED
+  bids        Bid[]
+  logistics   LogisticsTask?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model Bid {
+  id            String             @id @default(uuid())
+  listingId     String
+  listing       MarketplaceListing @relation(fields: [listingId], references: [id])
+  buyerId       String
+  buyer         User               @relation("BuyerBids", fields: [buyerId], references: [id])
+  offeredPrice  Float
+  quantity      Float
+  aiScore       Float?
+  isRecommended Boolean            @default(false)
+  status        String             @default("BID_SUBMITTED") // BID_SUBMITTED, ACCEPTED, REJECTED
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+}
+
+model LogisticsTask {
+  id             String             @id @default(uuid())
+  listingId      String             @unique
+  listing        MarketplaceListing @relation(fields: [listingId], references: [id])
+  vehicleDetails String
+  pickupSchedule DateTime
+  status         String             @default("TRANSPORT_SCHEDULED") // TRANSPORT_SCHEDULED, COLLECTED, DELIVERED
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+}
+
+model Transaction {
+  id        String            @id @default(uuid())
+  buyerId   String
+  buyer     User              @relation("BuyerTransactions", fields: [buyerId], references: [id])
+  fpoId     String
+  amount    Float
+  status    String            @default("PENDING") // PENDING, PAYMENT_COMPLETED
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+}
