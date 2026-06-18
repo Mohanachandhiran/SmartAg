@@ -48,7 +48,15 @@ export default function Home() {
           <div className="bg-card/70 backdrop-blur-md p-8 rounded-[2rem] shadow-sm border border-border inline-block max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-sm font-semibold mb-8">
               <Sprout className="w-4 h-4" />
-              <span>{t('home.hero.welcome')}</span>
+              <span>
+                {t('home.hero.welcome').split('SmartAg')[0]}
+                {t('home.hero.welcome').includes('SmartAg') && (
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-amber-500 font-black text-[15px] tracking-wide">
+                    SmartAg
+                  </span>
+                )}
+                {t('home.hero.welcome').split('SmartAg')[1]}
+              </span>
             </div>
             
             <h1 className="text-5xl lg:text-7xl font-black tracking-tight text-foreground mb-6 leading-[1.1]">
