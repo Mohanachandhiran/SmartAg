@@ -24,7 +24,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: apps/api/Dockerfile
+      dockerfile: backend/Dockerfile
     container_name: smartag-api
     restart: always
     environment:
@@ -40,7 +40,7 @@ services:
 
   ai:
     build:
-      context: ./services/ai
+      context: ./backend/ai
     container_name: smartag-ai
     restart: always
     environment:
@@ -51,7 +51,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: apps/web/Dockerfile
+      dockerfile: frontend/Dockerfile
     container_name: smartag-web
     restart: always
     environment:

@@ -3,21 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "apps/web",
-    "apps/api"
+    "frontend",
+    "backend"
   ],
   "scripts": {
     "dev": "npm run dev:web",
     "dev:fresh": "powershell -Command \"Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }\" && npm run dev:web",
-    "dev:web": "npm run dev --workspace=apps/web",
-    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:web": "npm run dev --workspace=frontend",
+    "dev:api": "npm run dev --workspace=backend",
     "kill:web": "powershell -Command \"Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }; Write-Host 'Port 3000 cleared.'\"",
     "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev",
-    "prisma:seed": "ts-node prisma/seed.ts"
+    "prisma:seed": "ts-node backend/prisma/seed.ts"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node backend/prisma/seed.ts"
   },
   "devDependencies": {
     "prisma": "^5.12.1",
