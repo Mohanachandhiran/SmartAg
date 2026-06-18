@@ -33,7 +33,7 @@ export default function BuyerHistory() {
     <div className="max-w-4xl mx-auto flex flex-col gap-6">
       
       {/* Header */}
-      <div className="flex flex-col gap-1.5 border-b border-border pb-3">
+      <div className="flex flex-col gap-1.5 border-b border-border pb-3 bg-card/80 backdrop-blur-md px-6 py-4 rounded-3xl border border-border inline-block shadow-sm">
         <h1 className="text-2xl font-serif font-black text-green-900 flex items-center gap-2">
           <History className="w-6 h-6 text-green-700" />
           Procurement History
@@ -66,7 +66,7 @@ export default function BuyerHistory() {
                     <span className="font-bold text-foreground block">{h.fpo?.name}</span>
                     <span className="text-[10px] text-muted-foreground">Farmer representative: {h.farmer?.name}</span>
                   </td>
-                  <td className="p-3 font-serif font-black text-green-950">₹{h.amount.toLocaleString()}</td>
+                  <td className="p-3 font-sans tabnum font-black text-green-950">₹{h.amount.toLocaleString()}</td>
                   <td className="p-3">
                     <span className="text-[9px] font-bold bg-green-800/10 text-green-800 border border-green-800/20 px-2 py-0.5 rounded-full uppercase">
                       {h.status}

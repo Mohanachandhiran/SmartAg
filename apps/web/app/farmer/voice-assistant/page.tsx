@@ -153,7 +153,7 @@ export default function VoiceAssistant() {
     <div className="max-w-3xl mx-auto flex flex-col gap-6 h-[calc(100vh-140px)] justify-between">
       
       {/* Top controls */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-border pb-3 shrink-0">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-border pb-3 shrink-0 bg-card/80 backdrop-blur-md p-6 rounded-3xl border border-border shadow-sm bg-card/80 backdrop-blur-md px-6 py-4 rounded-3xl border border-border inline-block shadow-sm">
         <div>
           <h1 className="text-2xl font-serif font-black text-green-900 flex items-center gap-2">
             AI Voice Assistant
@@ -186,7 +186,7 @@ export default function VoiceAssistant() {
             className={`flex max-w-[80%] flex-col gap-1 p-3.5 rounded-xl text-xs leading-relaxed ${m.role === 'user' ? 'bg-green-800 text-primary-foreground self-end' : 'bg-surface text-foreground self-start'}`}
           >
             <span className="text-[9px] font-bold opacity-60 uppercase">{m.role}</span>
-            <p>{m.text}</p>
+            <div className="whitespace-pre-wrap">{m.text}</div>
           </div>
         ))}
       </div>

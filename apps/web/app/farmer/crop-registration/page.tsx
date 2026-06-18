@@ -124,7 +124,7 @@ export default function CropRegistration() {
 
   return (
     <div className="max-w-4xl mx-auto flex flex-col gap-6">
-      <div className="flex flex-col gap-1.5 border-b border-border pb-3">
+      <div className="flex flex-col gap-1.5 border-b border-border pb-3 bg-card/80 backdrop-blur-md px-6 py-4 rounded-3xl border border-border inline-block shadow-sm">
         <h1 className="text-2xl font-serif font-black text-green-900">
           Register Crop Harvest
         </h1>
@@ -246,7 +246,7 @@ export default function CropRegistration() {
                 <div className={`p-4.5 rounded-lg border-2 ${recResult.recommended === 'JOIN_FPO' ? 'border-amber-400 bg-amber-400/5' : 'border-border'}`}>
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-xs font-bold text-foreground">Join FPO Group</span>
-                    <span className="text-xs font-serif font-black text-green-800">₹{recResult.joinFPO}/kg</span>
+                    <span className="text-xs font-sans tabnum font-black text-green-800">₹{recResult.joinFPO}/kg</span>
                   </div>
                   <button disabled={decisionLoading} onClick={() => handleDecision('JOIN_COLLECTIVE')} className="w-full bg-amber-400 hover:bg-amber-500 text-amber-950 font-bold py-1.5 text-[10px] rounded mb-1">
                     Select Collective Selling
@@ -258,7 +258,7 @@ export default function CropRegistration() {
                 <div className={`p-4.5 rounded-lg border ${recResult.recommended === 'SELL_MANDI_LATER' ? 'border-amber-400 bg-amber-400/5' : 'border-border'}`}>
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-xs font-bold text-foreground">Sell at Mandi Later</span>
-                    <span className="text-xs font-serif font-black text-green-800">₹{recResult.sellLater}/kg</span>
+                    <span className="text-xs font-sans tabnum font-black text-green-800">₹{recResult.sellLater}/kg</span>
                   </div>
                   <button disabled={decisionLoading} onClick={() => handleDecision('SELL_LATER')} className="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-1.5 text-[10px] rounded mb-1">
                     Select Scheduled Sale
@@ -269,7 +269,7 @@ export default function CropRegistration() {
                 <div className={`p-4.5 rounded-lg border ${recResult.recommended === 'SELL_MANDI_TODAY' ? 'border-amber-400 bg-amber-400/5' : 'border-border'}`}>
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-xs font-bold text-foreground">Sell at Mandi Today</span>
-                    <span className="text-xs font-serif font-black text-green-800">₹{recResult.sellToday}/kg</span>
+                    <span className="text-xs font-sans tabnum font-black text-green-800">₹{recResult.sellToday}/kg</span>
                   </div>
                   <button disabled={decisionLoading} onClick={() => handleDecision('SELL_TODAY')} className="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-1.5 text-[10px] rounded mb-1">
                     Sell Immediately

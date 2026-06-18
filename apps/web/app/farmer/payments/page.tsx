@@ -60,7 +60,7 @@ export default function Payments() {
     <div className="max-w-5xl mx-auto flex flex-col gap-6">
       
       {/* Header */}
-      <div className="flex flex-col gap-1.5 border-b border-border pb-3">
+      <div className="flex flex-col gap-1.5 border-b border-border pb-3 bg-card/80 backdrop-blur-md px-6 py-4 rounded-3xl border border-border inline-block shadow-sm">
         <h1 className="text-2xl font-serif font-black text-green-900 flex items-center gap-2">
           <CreditCard className="w-6 h-6 text-green-700" />
           Payments & Earnings
@@ -151,7 +151,7 @@ export default function Payments() {
                   </td>
                   <td className="p-3 font-bold text-foreground">{tx.cropType}</td>
                   <td className="p-3 font-medium text-foreground">{tx.buyer || 'FPO Collection'}</td>
-                  <td className="p-3 font-serif font-black text-green-950">₹{tx.amount.toLocaleString()}</td>
+                  <td className="p-3 font-sans tabnum font-black text-green-950">₹{tx.amount.toLocaleString()}</td>
                   <td className="p-3">
                     <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${tx.status.toLowerCase() === 'completed' ? 'bg-green-800/10 text-green-800 border border-green-800/20' : 'bg-amber-400/15 text-amber-500 border border-amber-400/20'}`}>
                       {tx.status}

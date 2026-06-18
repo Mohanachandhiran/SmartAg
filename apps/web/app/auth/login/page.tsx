@@ -3,11 +3,13 @@
 import React, { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Sprout, Users, ShoppingBag, Landmark, ArrowRight, Lock, User, AlertCircle } from 'lucide-react';
+import { useLanguage } from '@/components/shared/LanguageContext';
 
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const role = searchParams.get('role') || 'farmer';
+  const { t } = useLanguage();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -16,12 +18,12 @@ function LoginForm() {
 
   const getRoleInfo = () => {
     switch(role) {
-      case 'fpo': return { title: 'FPO Portal Login', icon: <Users className="w-12 h-12 text-amber-500" />, color: 'border-amber-500', bg: 'bg-amber-50', text: 'text-amber-800', next: '/fpo/dashboard' };
-      case 'buyer': return { title: 'Buyer Marketplace Login', icon: <ShoppingBag className="w-12 h-12 text-blue-500" />, color: 'border-blue-500', bg: 'bg-blue-50', text: 'text-blue-800', next: '/buyer/dashboard' };
-      case 'government': return { title: 'Gov Command Center Login', icon: <Landmark className="w-12 h-12 text-purple-500" />, color: 'border-purple-500', bg: 'bg-purple-50', text: 'text-purple-800', next: '/government/command-center' };
+      case 'fpo': return { title: t('login.fpoTitle'), icon: <Users className="w-12 h-12 text-amber-500" />, color: 'border-amber-500', bg: 'bg-amber-50', text: 'text-amber-800', next: '/fpo/dashboard' };
+      case 'buyer': return { title: t('login.buyerTitle'), icon: <ShoppingBag className="w-12 h-12 text-blue-500" />, color: 'border-blue-500', bg: 'bg-blue-50', text: 'text-blue-800', next: '/buyer/dashboard' };
+      case 'government': return { title: t('login.govTitle'), icon: <Landmark className="w-12 h-12 text-purple-500" />, color: 'border-purple-500', bg: 'bg-purple-50', text: 'text-purple-800', next: '/government/command-center' };
       case 'farmer':
       default:
-        return { title: 'Farmer Portal Login', icon: <Sprout className="w-12 h-12 text-emerald-700" />, color: 'border-emerald-800', bg: 'bg-emerald-50', text: 'text-emerald-800', next: '/farmer/dashboard' };
+        return { title: t('login.farmerTitle'), icon: <Sprout className="w-12 h-12 text-emerald-700" />, color: 'border-emerald-800', bg: 'bg-emerald-50', text: 'text-emerald-800', next: '/farmer/dashboard' };
     }
   };
 
@@ -34,7 +36,7 @@ function LoginForm() {
     setError('');
     
     if (!username || !password) {
-      setError('Please enter both your name and password.');
+      setError(t('login.errorEmpty'));
       return;
     }
 
@@ -42,7 +44,7 @@ function LoginForm() {
     
     try {
       const endpoint = isRegister ? '/auth/register' : '/auth/login';
-      const body = isRegister ? { name: username, password, role: role.toUpperCase() } : { name: username, password };
+      const body = { name: username, password, role: role.toUpperCase() };
       
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}${endpoint}`, {
         method: 'POST',
@@ -80,7 +82,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="flex-1 flex items-center justify-center bg-[#F5F7FB] p-6">
+    <div className="flex-1 flex items-center justify-start bg-transparent p-6 md:p-12 lg:pl-32">
       <div className={`w-full max-w-md bg-white border-t-4 ${info.color} rounded-2xl shadow-xl p-8`}>
         <div className="flex flex-col items-center text-center mb-8">
           <div className={`p-4 rounded-full ${info.bg} mb-4`}>
@@ -88,7 +90,7 @@ function LoginForm() {
           </div>
           <h1 className="text-2xl font-bold text-slate-900">{info.title}</h1>
           <p className="text-xs text-slate-500 mt-2">
-            Secure access to your personal SmartAg dashboard.
+            {t('login.subtitle')}
           </p>
         </div>
 
@@ -101,21 +103,21 @@ function LoginForm() {
 
         <form onSubmit={handleLogin} className="flex flex-col gap-5">
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">Registered Name</label>
+            <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">{t('login.registeredName')}</label>
             <div className="relative">
               <User className="w-4 h-4 absolute left-3.5 top-3 text-slate-400" />
               <input 
                 type="text" 
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter your name"
+                placeholder={t('login.enterName')}
                 className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-800/20 focus:border-emerald-800 transition-all"
               />
             </div>
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">Password</label>
+            <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">{t('login.password')}</label>
             <div className="relative">
               <Lock className="w-4 h-4 absolute left-3.5 top-3 text-slate-400" />
               <input 
@@ -136,17 +138,17 @@ function LoginForm() {
             {loading ? (
                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             ) : (
-               <>{isRegister ? 'Create Account' : 'Login Securely'} <ArrowRight className="w-4 h-4" /></>
+               <>{isRegister ? t('login.createBtn') : t('login.loginBtn')} <ArrowRight className="w-4 h-4" /></>
             )}
           </button>
         </form>
 
         <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-500">
           <button onClick={() => router.push('/')} className="hover:text-slate-800 transition-colors">
-            &larr; Back to Platform
+            &larr; {t('login.back')}
           </button>
           <button onClick={() => setIsRegister(!isRegister)} className="hover:text-slate-800 transition-colors">
-            {isRegister ? 'Already have an account? Login' : 'Create an Account'}
+            {isRegister ? t('login.toggleLogin') : t('login.toggleRegister')}
           </button>
         </div>
       </div>

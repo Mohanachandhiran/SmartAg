@@ -1,68 +1,55 @@
 import os
-import zipfile
 import json
 import tensorflow as tf
-from tensorflow.keras.applications import MobileNetV3Small
-from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout
-from tensorflow.keras.models import Model
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
 # Configuration
-ZIP_PATH = r"C:\Users\mohan\Downloads\archive.zip"
-EXTRACT_DIR = r"datasets"
-# Assuming the zip extracts to a folder that contains the classes. 
-# We'll figure out the exact data dir after extraction.
+DATA_DIR = r"C:\Users\mohan\Downloads\archive\PlantVillage\PlantVillage"
 MODEL_SAVE_PATH = "crop_disease_model.h5"
 CLASS_INDICES_PATH = "class_indices.json"
 
-IMG_SIZE = (224, 224)
+IMG_SIZE = (256, 256)
 BATCH_SIZE = 32
-EPOCHS = 3 # Keep low for fast demonstration, increase for production accuracy
+EPOCHS = 5 # Reduced from 15 for faster demonstration. Increase for full training.
 
-def extract_dataset():
-    print(f"Extracting {ZIP_PATH} to {EXTRACT_DIR}...")
-    os.makedirs(EXTRACT_DIR, exist_ok=True)
-    with zipfile.ZipFile(ZIP_PATH, 'r') as zip_ref:
-        zip_ref.extractall(EXTRACT_DIR)
-    print("Extraction complete.")
-
-def find_data_dir(base_dir):
-    """
-    Finds the directory containing the class folders. 
-    Sometimes zip files have a top-level directory (e.g., 'PlantVillage/').
-    """
-    for root, dirs, files in os.walk(base_dir):
-        # If a directory has multiple subdirectories and no files, it's likely the parent of the classes
-        if len(dirs) > 5:
-            return root
-    return base_dir
-
-def build_model(num_classes):
-    base_model = MobileNetV3Small(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
-    base_model.trainable = False # Freeze base model initially
+def build_model(num_classes, input_shape):
+    model = Sequential()
+    model.add(Conv2D(32, (5, 5), input_shape=input_shape, activation='relu'))
+    model.add(MaxPooling2D(pool_size=(3, 3)))
     
-    x = base_model.output
-    x = GlobalAveragePooling2D()(x)
-    x = Dense(256, activation='relu')(x)
-    x = Dropout(0.2)(x)
-    predictions = Dense(num_classes, activation='softmax')(x)
+    model.add(Conv2D(32, (3, 3), activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
     
-    model = Model(inputs=base_model.input, outputs=predictions)
-    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+    model.add(Conv2D(64, (3, 3), activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))   
+    
+    model.add(Flatten())
+    model.add(Dense(512, activation='relu'))
+    model.add(Dropout(0.25))
+    model.add(Dense(128, activation='relu'))          
+    model.add(Dense(num_classes, activation='softmax'))
+    
+    model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001), 
+                  loss='sparse_categorical_crossentropy', 
+                  metrics=['accuracy'])
     return model
 
 def train():
-    if not os.path.exists(EXTRACT_DIR) or len(os.listdir(EXTRACT_DIR)) == 0:
-        extract_dataset()
-    else:
-        print("Dataset already extracted.")
+    if not os.path.exists(DATA_DIR):
+        print(f"Error: Dataset directory {DATA_DIR} not found.")
+        return
         
-    data_dir = find_data_dir(EXTRACT_DIR)
-    print(f"Using data directory: {data_dir}")
+    print(f"Using data directory: {DATA_DIR}")
     
     print("Loading datasets...")
+    # The reference repo uses rescaling in datagen. We achieve this here by adding a Rescaling layer or 
+    # relying on preprocess layer, but `image_dataset_from_directory` handles images in [0,255].
+    # We will pass rescaling as part of a preprocessing step or model layer.
+    
     train_ds = tf.keras.utils.image_dataset_from_directory(
-        data_dir,
+        DATA_DIR,
         validation_split=0.2,
         subset="training",
         seed=123,
@@ -71,7 +58,7 @@ def train():
     )
     
     val_ds = tf.keras.utils.image_dataset_from_directory(
-        data_dir,
+        DATA_DIR,
         validation_split=0.2,
         subset="validation",
         seed=123,
@@ -87,7 +74,13 @@ def train():
         json.dump(class_names, f)
         
     print("Building model...")
-    model = build_model(len(class_names))
+    # Add a rescaling layer as the first layer to normalize pixel values to [0,1]
+    normalization_layer = tf.keras.layers.Rescaling(1./255)
+    normalized_train_ds = train_ds.map(lambda x, y: (normalization_layer(x), y))
+    normalized_val_ds = val_ds.map(lambda x, y: (normalization_layer(x), y))
+    
+    model = build_model(len(class_names), input_shape=(IMG_SIZE[0], IMG_SIZE[1], 3))
+    model.summary()
     
     # Callbacks
     callbacks = [
@@ -97,8 +90,8 @@ def train():
     
     print(f"Training for {EPOCHS} epochs...")
     history = model.fit(
-        train_ds,
-        validation_data=val_ds,
+        normalized_train_ds,
+        validation_data=normalized_val_ds,
         epochs=EPOCHS,
         callbacks=callbacks
     )

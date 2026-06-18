@@ -43,7 +43,7 @@ export default function FpoAnalytics() {
     <div className="max-w-5xl mx-auto flex flex-col gap-6">
       
       {/* Header */}
-      <div className="flex flex-col gap-1.5 border-b border-border pb-3">
+      <div className="flex flex-col gap-1.5 border-b border-border pb-3 bg-card/80 backdrop-blur-md px-6 py-4 rounded-3xl border border-border inline-block shadow-sm">
         <h1 className="text-2xl font-serif font-black text-green-900 flex items-center gap-2">
           <MapPin className="w-6 h-6 text-green-700" />
           Statewide FPO Performance Analytics
@@ -75,7 +75,7 @@ export default function FpoAnalytics() {
               <div className="flex justify-between items-center mt-3 pt-3 border-t border-border/60">
                 <div>
                   <span className="text-[9px] text-muted-foreground block">Revenue</span>
-                  <span className="font-serif font-black text-green-800">₹4.12 Lakhs</span>
+                  <span className="font-sans tabnum font-black text-green-800">₹4.12 Lakhs</span>
                 </div>
                 <div>
                   <span className="text-[9px] text-muted-foreground block">Active members</span>
@@ -114,7 +114,7 @@ export default function FpoAnalytics() {
                   <td className="p-3 font-bold text-foreground">{fpo.name}</td>
                   <td className="p-3 text-muted-foreground font-semibold">{fpo.district}</td>
                   <td className="p-3 font-semibold text-foreground">{fpo.activeFarmers}</td>
-                  <td className="p-3 font-serif font-black text-green-950">₹{fpo.revenue.toLocaleString()}</td>
+                  <td className="p-3 font-sans tabnum font-black text-green-950">₹{fpo.revenue.toLocaleString()}</td>
                   <td className="p-3 text-green-600 font-bold text-right">{fpo.cropMovement} Tonnes</td>
                 </tr>
               ))}

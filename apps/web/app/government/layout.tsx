@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { 
   LayoutDashboard, Scale, BarChart3, AlertTriangle, BellRing, MapPin, Brain, FileSpreadsheet 
 } from 'lucide-react';
@@ -10,27 +10,44 @@ import { useLanguage } from '@/components/shared/LanguageContext';
 
 export default function GovernmentLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const { t } = useLanguage();
 
+  useEffect(() => {
+    const userStr = localStorage.getItem('smartag_user');
+    if (!userStr) {
+      router.push('/auth/login?role=government');
+      return;
+    }
+    try {
+      const user = JSON.parse(userStr);
+      if (user.role !== 'GOVERNMENT') {
+        router.push('/'); // Redirect unauthorized
+      }
+    } catch (e) {
+      router.push('/auth/login?role=government');
+    }
+  }, [router]);
+
   const menuItems = [
-    { name: 'Command Center', path: '/government/command-center', icon: <LayoutDashboard className="w-4 h-4" /> },
-    { name: 'Supply Stability Index', path: '/government/supply-index', icon: <Scale className="w-4 h-4" /> },
-    { name: 'Market Intel', path: '/government/market-intelligence', icon: <BarChart3 className="w-4 h-4" /> },
-    { name: 'Risk Monitoring', path: '/government/risk-monitoring', icon: <AlertTriangle className="w-4 h-4" /> },
-    { name: 'Early Warning alerts', path: '/government/early-warning', icon: <BellRing className="w-4 h-4" /> },
-    { name: 'FPO Analytics', path: '/government/fpo-analytics', icon: <MapPin className="w-4 h-4" /> },
-    { name: 'Policy Insights', path: '/government/policy-insights', icon: <Brain className="w-4 h-4" /> },
-    { name: 'Intervention Reports', path: '/government/reports', icon: <FileSpreadsheet className="w-4 h-4" /> }
+    { name: t('government.menu.command'), path: '/government/command-center', icon: <LayoutDashboard className="w-4 h-4" /> },
+    { name: t('government.menu.supply'), path: '/government/supply-index', icon: <Scale className="w-4 h-4" /> },
+    { name: t('government.menu.market'), path: '/government/market-intelligence', icon: <BarChart3 className="w-4 h-4" /> },
+    { name: t('government.menu.risk'), path: '/government/risk-monitoring', icon: <AlertTriangle className="w-4 h-4" /> },
+    { name: t('government.menu.earlyWarning'), path: '/government/early-warning', icon: <BellRing className="w-4 h-4" /> },
+    { name: t('government.menu.fpoAnalytics'), path: '/government/fpo-analytics', icon: <MapPin className="w-4 h-4" /> },
+    { name: t('government.menu.policy'), path: '/government/policy-insights', icon: <Brain className="w-4 h-4" /> },
+    { name: t('government.menu.reports'), path: '/government/reports', icon: <FileSpreadsheet className="w-4 h-4" /> }
   ];
 
   return (
-    <div className="flex flex-1 flex-col md:flex-row min-h-screen">
+    <div className="flex flex-1 flex-col md:flex-row min-h-screen" style={{ '--current-heading': 'var(--font-ibm-plex)' } as React.CSSProperties}>
       {/* Sidebar navigation */}
       <aside className="w-full md:w-64 bg-card border-r border-border shrink-0 py-6 px-4 flex flex-col justify-between shadow-sm">
         <div className="flex flex-col gap-6">
           <div className="px-3">
-            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest font-sans">
-              State Monitor Panel
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+              {t('government.title')}
             </span>
           </div>
           <nav className="flex flex-col gap-1">
@@ -52,7 +69,7 @@ export default function GovernmentLayout({ children }: { children: React.ReactNo
       </aside>
 
       {/* Main page content */}
-      <div className="flex-1 bg-surface p-4 sm:p-8 overflow-y-auto">
+      <div className="flex-1 bg-transparent p-4 sm:p-8 overflow-y-auto">
         {children}
       </div>
     </div>

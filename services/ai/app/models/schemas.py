@@ -165,3 +165,41 @@ class CommodityInfo(BaseModel):
     best_price: float = 0
     best_market: str = ""
     best_state: str = ""
+
+
+class SchemeProfileRequest(BaseModel):
+    name: str
+    state: str
+    district: str
+    village: str
+    language: str
+    landOwnership: str
+    landArea: str
+    farmerCategory: str
+    primaryCrop: str
+    secondaryCrop: str
+    irrigationType: str
+    annualIncome: str
+    needTractor: str
+    needMachinery: str
+    needIrrigation: str
+    needSolar: str
+    needLoan: str
+    needInsurance: str
+
+class SchemeRecommendation(BaseModel):
+    id: str
+    name: str
+    benefitAmount: str
+    eligibilityScore: int
+    matchReason: str
+    documents: list[str]
+    link: str
+
+class SchemeAnalysisResponse(BaseModel):
+    schemes: list[SchemeRecommendation]
+    totalBenefitsValue: int
+    annualSupportValue: int
+    loanEligibilityValue: int
+    subsidyEligibilityValue: int
+    aiExplanation: str

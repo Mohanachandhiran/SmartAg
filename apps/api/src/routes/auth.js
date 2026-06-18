@@ -47,7 +47,7 @@ router.post('/login', async (req, res, next) => {
       return res.status(400).json({ error: 'Invalid input format.' });
     }
 
-    const { name, password } = parsed.data;
+    const { name, password, role } = parsed.data;
 
     const user = await prisma.user.findFirst({
       where: { name }
@@ -55,6 +55,10 @@ router.post('/login', async (req, res, next) => {
 
     if (!user || user.passwordHash !== password) {
       return res.status(401).json({ error: 'Invalid name or password.' });
+    }
+
+    if (role && user.role !== role) {
+      return res.status(403).json({ error: `Account mismatch. Please log in via the ${user.role} portal.` });
     }
 
     const token = jwt.sign(

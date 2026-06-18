@@ -13,6 +13,7 @@ export default function CollectiveSelling() {
 
   const [joinedGroups, setJoinedGroups] = useState<any[]>([]);
 
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('smartag_token');
@@ -82,6 +83,7 @@ export default function CollectiveSelling() {
       }
     };
     fetchData();
+  }, []);
 
   const handleJoinGroup = (group: any) => {
     setSelectedGroup(group);
@@ -156,7 +158,7 @@ export default function CollectiveSelling() {
     <div className="max-w-4xl mx-auto flex flex-col gap-6">
       
       {/* Top Navigation */}
-      <div className="flex flex-col gap-1.5 border-b border-border pb-3">
+      <div className="flex flex-col gap-1.5 border-b border-border pb-3 bg-card/80 backdrop-blur-md px-6 py-4 rounded-3xl border border-border inline-block shadow-sm">
         <h1 className="text-2xl font-serif font-black text-green-900 flex items-center gap-2">
           <Users className="w-6 h-6 text-green-700" />
           FPO Collective Selling
@@ -272,7 +274,7 @@ export default function CollectiveSelling() {
             <div className="bg-muted p-3.5 rounded-lg text-xs flex justify-between items-center">
               <div>
                 <span className="text-[10px] text-muted-foreground block uppercase">Expected Return</span>
-                <span className="font-serif font-black text-green-800">₹{(selectedGroup.expectedPrice * 1500).toLocaleString()}</span>
+                <span className="font-sans tabnum font-black text-green-800">₹{(selectedGroup.expectedPrice * 1500).toLocaleString()}</span>
               </div>
               <ChevronRight className="w-4 h-4 text-green-800" />
               <div className="text-right">

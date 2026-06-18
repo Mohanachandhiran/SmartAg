@@ -12,6 +12,8 @@ from buyer_recommendation import rank_buyers
 from risk_engine import assess_risk
 from voice_chat import generate_voice_response
 from disease_detect import detect_disease
+from scheme_advisor import analyze_schemes
+from app.models.schemas import SchemeProfileRequest
 
 # Lifespan for initializing data store
 @asynccontextmanager
@@ -120,6 +122,13 @@ async def api_disease_detect(file: UploadFile = File(...), language: str = Form(
     try:
         image_bytes = await file.read()
         return detect_disease(image_bytes, language)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/ai/scheme-advisor")
+def api_scheme_advisor(req: SchemeProfileRequest):
+    try:
+        return analyze_schemes(req)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

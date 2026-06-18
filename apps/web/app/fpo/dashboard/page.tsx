@@ -229,7 +229,7 @@ export default function FpoDashboard() {
                   <span className="text-[9px] text-muted-foreground uppercase">Lot: {bid.quantity} kg • {bid.listing?.cropType}</span>
                 </div>
                 <div className="text-right">
-                  <span className="font-serif font-black text-green-800 block">₹{bid.pricePerKg}/kg</span>
+                  <span className="font-sans tabnum font-black text-green-800 block">₹{bid.pricePerKg}/kg</span>
                   <span className="text-[9px] text-muted-foreground">Total: ₹{(bid.pricePerKg * bid.quantity).toLocaleString()}</span>
                 </div>
               </div>

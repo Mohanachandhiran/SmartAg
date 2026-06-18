@@ -121,7 +121,7 @@ export default function BuyerDashboard() {
                 
                 <div className="text-right flex items-center gap-3">
                   <div>
-                    <span className="font-serif font-black text-green-800 block">₹{b.pricePerKg}/kg</span>
+                    <span className="font-sans tabnum font-black text-green-800 block">₹{b.pricePerKg}/kg</span>
                     <span className="text-[9px] text-muted-foreground">Volume: {b.quantity} kg</span>
                   </div>
                   <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${b.status === 'ACTIVE' ? 'bg-amber-400/10 text-amber-500' : 'bg-red-500/10 text-red-500'}`}>

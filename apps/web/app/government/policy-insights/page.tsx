@@ -43,7 +43,7 @@ export default function PolicyInsights() {
     <div className="max-w-4xl mx-auto flex flex-col gap-6">
       
       {/* Header */}
-      <div className="flex flex-col gap-1.5 border-b border-border pb-3">
+      <div className="flex flex-col gap-1.5 border-b border-border pb-3 bg-card/80 backdrop-blur-md px-6 py-4 rounded-3xl border border-border inline-block shadow-sm">
         <h1 className="text-2xl font-serif font-black text-green-900 flex items-center gap-2">
           <Brain className="w-6 h-6 text-amber-500 animate-pulse" />
           AI Policy Insights brief

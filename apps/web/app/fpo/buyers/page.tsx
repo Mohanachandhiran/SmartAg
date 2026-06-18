@@ -32,7 +32,7 @@ export default function Buyers() {
     <div className="max-w-5xl mx-auto flex flex-col gap-6">
       
       {/* Header */}
-      <div className="flex flex-col gap-1.5 border-b border-border pb-3">
+      <div className="flex flex-col gap-1.5 border-b border-border pb-3 bg-card/80 backdrop-blur-md px-6 py-4 rounded-3xl border border-border inline-block shadow-sm">
         <h1 className="text-2xl font-serif font-black text-green-900 flex items-center gap-2">
           <HeartHandshake className="w-6 h-6 text-green-700" />
           Buyer Directory & Recommendations
@@ -152,7 +152,7 @@ export default function Buyers() {
 
                 <div className="border-t border-border pt-4 mt-4 flex justify-between items-baseline">
                   <span className="text-[10px] font-bold text-muted-foreground uppercase">Net Revenue</span>
-                  <span className="text-base font-serif font-black text-green-800">₹{c.net.toLocaleString()}</span>
+                  <span className="text-base font-sans tabnum font-black text-green-800">₹{c.net.toLocaleString()}</span>
                 </div>
               </div>
             ))}

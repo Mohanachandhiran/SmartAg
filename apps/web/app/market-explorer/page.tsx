@@ -463,7 +463,7 @@ export default function MarketExplorer() {
   };
 
   return (
-    <div className="flex-1 bg-[#F5F7FB] pb-12 text-slate-800">
+    <div className="flex-1 bg-transparent pb-12 text-slate-800">
       
       {/* 🏛️ Professional SaaS Header Panel */}
       <div className="bg-white border-b border-slate-200 py-6 px-6 sm:px-12 shadow-sm">

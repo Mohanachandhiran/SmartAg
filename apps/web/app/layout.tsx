@@ -1,25 +1,32 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, DM_Sans, JetBrains_Mono } from 'next/font/google';
+import { Inter, Poppins, Noto_Sans, IBM_Plex_Sans } from 'next/font/google';
 import './globals.css';
+import 'leaflet/dist/leaflet.css';
 import { LanguageProvider } from '@/components/shared/LanguageContext';
 import Header from '@/components/shared/Header';
 
-const playfair = Playfair_Display({
-  variable: '--font-playfair',
-  subsets: ['latin'],
-  weight: ['600', '700'],
-});
-
-const dmSans = DM_Sans({
-  variable: '--font-dm-sans',
+const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
 });
 
-const jetBrainsMono = JetBrains_Mono({
-  variable: '--font-mono',
+const poppins = Poppins({
+  variable: '--font-poppins',
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+});
+
+const notoSans = Noto_Sans({
+  variable: '--font-noto-sans',
+  subsets: ['latin', 'devanagari', 'tamil'],
+  weight: ['400', '500', '600', '700'],
+});
+
+const ibmPlexSans = IBM_Plex_Sans({
+  variable: '--font-ibm-plex',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
@@ -35,15 +42,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${jetBrainsMono.variable} h-full antialiased`} suppressHydrationWarning>
-      <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
+    <html lang="en" className={`${inter.variable} ${poppins.variable} ${notoSans.variable} ${ibmPlexSans.variable} h-full antialiased`} suppressHydrationWarning>
+      <body className="min-h-full flex flex-col text-foreground">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <LanguageProvider>
             <Header />
             <main className="flex-1 flex flex-col">
               {children}
             </main>
-            <footer className="border-t border-border bg-card py-4 text-center text-xs text-muted-foreground font-sans">
+            <footer className="border-t border-border bg-card py-4 text-center text-xs text-muted-foreground">
               © {new Date().getFullYear()} SmartAg Collective. Made for Indian Agriculture. All rights reserved.
             </footer>
           </LanguageProvider>

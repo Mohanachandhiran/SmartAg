@@ -1,38 +1,42 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Sprout, Users, ShoppingBag, Landmark, ArrowRight, Shield, TrendingUp, CloudSun, Target } from 'lucide-react';
+import { Sprout, Users, ShoppingBag, Landmark, ArrowRight, Shield, TrendingUp, CloudSun, Target, FileText } from 'lucide-react';
 import CropHealthScanner from '@/components/scanner/CropHealthScanner';
+import SchemeFinderWizard from '@/components/schemes/SchemeFinderWizard';
+import { useLanguage } from '@/components/shared/LanguageContext';
 
 export default function Home() {
   const router = useRouter();
+  const { t } = useLanguage();
+  const [isSchemeFinderOpen, setIsSchemeFinderOpen] = useState(false);
 
   const features = [
     {
-      title: 'Mandi Intelligence',
-      desc: 'Real-time spot prices across regional mandis with predictive trend analysis.',
+      title: t('home.capabilities.f1Title'),
+      desc: t('home.capabilities.f1Desc'),
       icon: <TrendingUp className="w-6 h-6 text-emerald-600" />
     },
     {
-      title: 'Weather Forecasting',
-      desc: 'Hyper-local 7-day weather risk assessment tailored for your specific crop.',
+      title: t('home.capabilities.f2Title'),
+      desc: t('home.capabilities.f2Desc'),
       icon: <CloudSun className="w-6 h-6 text-amber-500" />
     },
     {
-      title: 'Collective Selling',
-      desc: 'Smart grouping engine connects farmers to FPOs for maximized bargaining power.',
+      title: t('home.capabilities.f3Title'),
+      desc: t('home.capabilities.f3Desc'),
       icon: <Users className="w-6 h-6 text-blue-500" />
     },
     {
-      title: 'Government Command Center',
-      desc: 'Statewide crop indices, supply chain mapping, and price stability monitoring.',
+      title: t('home.capabilities.f4Title'),
+      desc: t('home.capabilities.f4Desc'),
       icon: <Landmark className="w-6 h-6 text-purple-600" />
     }
   ];
 
   return (
-    <div className="flex flex-col flex-1 bg-white overflow-x-hidden">
+    <div className="flex flex-col flex-1 overflow-x-hidden bg-transparent">
       {/* Hero Section */}
       <section className="relative pt-20 pb-24 lg:pt-32 lg:pb-32 px-6 lg:px-12 max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center gap-12">
         
@@ -41,46 +45,48 @@ export default function Home() {
 
         {/* Left Side: Content */}
         <div className="flex-1 text-center lg:text-left z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 border border-green-200 text-green-700 text-sm font-semibold mb-8">
-            <Sprout className="w-4 h-4" />
-            <span>Welcome to SmartAgOps</span>
-          </div>
-          
-          <h1 className="text-5xl lg:text-7xl font-black tracking-tight text-slate-900 mb-6 leading-[1.1]">
-            AI-Powered <br className="hidden lg:block"/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-500">Agricultural</span><br className="hidden lg:block"/>
-            Intelligence Platform
-          </h1>
-          
-          <p className="text-lg text-slate-600 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-            Helping farmers, FPOs, buyers, and governments make profitable decisions using real-time market intelligence, weather forecasts, and AI recommendations.
-          </p>
+          <div className="bg-card/70 backdrop-blur-md p-8 rounded-[2rem] shadow-sm border border-border inline-block max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-sm font-semibold mb-8">
+              <Sprout className="w-4 h-4" />
+              <span>{t('home.hero.welcome')}</span>
+            </div>
+            
+            <h1 className="text-5xl lg:text-7xl font-black tracking-tight text-foreground mb-6 leading-[1.1]">
+              {t('home.hero.title1')} <br className="hidden lg:block"/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">{t('home.hero.title2')}</span><br className="hidden lg:block"/>
+              {t('home.hero.title3')}
+            </h1>
+            
+            <p className="text-lg text-muted-foreground mb-10 mx-auto lg:mx-0 leading-relaxed">
+              {t('home.hero.subtitle')}
+            </p>
 
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
-            <button 
-              onClick={() => router.push('/auth/login?role=farmer')}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-emerald-900/20 transition-all flex items-center gap-2"
-            >
-              Farmer Login <ArrowRight className="w-4 h-4" />
-            </button>
-            <button 
-              onClick={() => router.push('/auth/login?role=fpo')}
-              className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-amber-900/20 transition-all flex items-center gap-2"
-            >
-              FPO Login <ArrowRight className="w-4 h-4" />
-            </button>
-            <button 
-              onClick={() => router.push('/auth/login?role=buyer')}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-blue-900/20 transition-all flex items-center gap-2"
-            >
-              Buyer Login <ArrowRight className="w-4 h-4" />
-            </button>
-            <button 
-              onClick={() => router.push('/auth/login?role=government')}
-              className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-purple-900/20 transition-all flex items-center gap-2"
-            >
-              Govt Login <ArrowRight className="w-4 h-4" />
-            </button>
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-2">
+              <button 
+                onClick={() => router.push('/auth/login?role=farmer')}
+                className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-emerald-900/20 transition-all flex items-center gap-2"
+              >
+                {t('home.hero.farmerLogin')} <ArrowRight className="w-4 h-4" />
+              </button>
+              <button 
+                onClick={() => router.push('/auth/login?role=fpo')}
+                className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-amber-900/20 transition-all flex items-center gap-2"
+              >
+                {t('home.hero.fpoLogin')} <ArrowRight className="w-4 h-4" />
+              </button>
+              <button 
+                onClick={() => router.push('/auth/login?role=buyer')}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-blue-900/20 transition-all flex items-center gap-2"
+              >
+                {t('home.hero.buyerLogin')} <ArrowRight className="w-4 h-4" />
+              </button>
+              <button 
+                onClick={() => router.push('/auth/login?role=government')}
+                className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3.5 rounded-full font-semibold shadow-lg shadow-purple-900/20 transition-all flex items-center gap-2"
+              >
+                {t('home.hero.govLogin')} <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -107,14 +113,48 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Government Scheme Finder Section */}
+      <section className="py-16 px-6 max-w-7xl mx-auto w-full relative z-20">
+        <div className="bg-gradient-to-r from-emerald-800 to-green-900 rounded-3xl p-8 lg:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 border border-emerald-700/50">
+          <div className="flex-1 text-center md:text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-emerald-100 text-xs font-bold uppercase tracking-wider mb-4">
+              <Shield className="w-4 h-4" />
+              <span>Government Benefits</span>
+            </div>
+            <h2 className="text-3xl lg:text-4xl font-black text-white mb-4">
+              {t ? t('schemes.title') : 'Government Scheme Finder'}
+            </h2>
+            <p className="text-emerald-100/90 text-lg max-w-xl">
+              {t ? t('schemes.subtitle') : 'Discover subsidies, loans, and benefits you are eligible for instantly using our AI analyzer.'}
+            </p>
+          </div>
+          <div className="shrink-0">
+            <button 
+              onClick={() => setIsSchemeFinderOpen(true)}
+              className="bg-amber-400 hover:bg-amber-500 text-green-950 px-8 py-4 rounded-xl font-black shadow-xl shadow-amber-500/20 transition-all flex items-center gap-2 text-lg hover:scale-105 active:scale-95"
+            >
+              <FileText className="w-6 h-6" />
+              {t ? t('schemes.checkNow') : 'Check Government Schemes'}
+            </button>
+          </div>
+        </div>
+        
+        <SchemeFinderWizard 
+          isOpen={isSchemeFinderOpen} 
+          onClose={() => setIsSchemeFinderOpen(false)} 
+        />
+      </section>
+
       {/* Disease Scanner Section (No Login Required) */}
-      <section className="bg-slate-50 py-24 px-6 border-y border-slate-200">
+      <section className="bg-card/50 py-24 px-6 border-y border-border backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Instant Crop Health Diagnosis</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">
-              Worried about a diseased leaf? Use our TensorFlow-powered Crop Health Scanner to get an instant diagnosis, treatment plan, and cost estimate without creating an account.
-            </p>
+            <div className="inline-block bg-card/70 backdrop-blur-md px-8 py-6 rounded-3xl border border-border">
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t('home.healthScanner.title')}</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                {t('home.healthScanner.desc')}
+              </p>
+            </div>
           </div>
           
           <CropHealthScanner />
@@ -124,20 +164,22 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-24 px-6 max-w-7xl mx-auto w-full">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Platform Capabilities</h2>
-          <p className="text-slate-600 max-w-2xl mx-auto">
-            Everything you need to modernize agricultural supply chains and maximize farmer income.
-          </p>
+          <div className="inline-block bg-card/70 backdrop-blur-md px-8 py-6 rounded-3xl border border-border">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">{t('home.capabilities.title')}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              {t('home.capabilities.subtitle')}
+            </p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((f, idx) => (
-            <div key={idx} className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-              <div className="bg-slate-50 w-14 h-14 rounded-xl flex items-center justify-center mb-6">
+            <div key={idx} className="bg-card/80 backdrop-blur p-8 rounded-2xl border border-border shadow-sm hover:shadow-md transition-shadow">
+              <div className="bg-muted w-14 h-14 rounded-xl flex items-center justify-center mb-6">
                 {f.icon}
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{f.title}</h3>
-              <p className="text-slate-600 leading-relaxed">
+              <h3 className="text-xl font-bold text-card-foreground mb-3">{f.title}</h3>
+              <p className="text-muted-foreground leading-relaxed">
                 {f.desc}
               </p>
             </div>
@@ -146,7 +188,7 @@ export default function Home() {
       </section>
       
       {/* Footer Trust Banner */}
-      <footer className="border-t border-slate-200 py-8 text-center text-slate-500 text-sm">
+      <footer className="border-t border-border py-8 text-center text-muted-foreground text-sm backdrop-blur-sm">
         <div className="flex items-center justify-center gap-2">
           <Shield className="w-4 h-4 text-emerald-600" />
           <span>Secured via Role-Based Access Control. Multi-language support enabled.</span>

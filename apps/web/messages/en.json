@@ -66,6 +66,13 @@
       "english": "English",
       "hindi": "Hindi",
       "askQuestion": "Ask a question..."
+    },
+    "menu": {
+      "simulator": "Profit Simulator",
+      "mandi": "Mandi Prices",
+      "weather": "Weather Forecast",
+      "scanner": "Crop Scanner",
+      "payments": "Payments Feed"
     }
   },
   "market": {
@@ -106,5 +113,162 @@
     "detailEmpty": "Detail Panel Empty",
     "detailEmptyDesc": "Select any mandi row from the comparison board to analyze prices, forecasts, and geospatial coordinates.",
     "returnHome": "Return to Home Dashboard"
+  },
+  "schemes": {
+    "title": "Government Scheme Finder",
+    "subtitle": "Discover subsidies, loans, and benefits you are eligible for instantly.",
+    "checkNow": "Check Government Schemes",
+    "personalDetails": "Personal Details",
+    "farmDetails": "Farm Details",
+    "cropDetails": "Crop Details",
+    "infrastructure": "Infrastructure Needs",
+    "analyzing": "AI is analyzing your eligibility...",
+    "results": "Your Eligibility Results",
+    "next": "Next",
+    "back": "Back",
+    "submit": "Find Schemes",
+    "applyNow": "Apply Now",
+    "benefitsCalculator": "Potential Benefits Calculator",
+    "totalBenefits": "Total Eligible Benefits",
+    "annualSupport": "Annual Support",
+    "loanEligibility": "Loan Eligibility",
+    "subsidyEligibility": "Subsidy Eligibility",
+    "name": "Full Name",
+    "state": "State",
+    "district": "District",
+    "village": "Village",
+    "language": "Preferred Language",
+    "landOwnership": "Land Ownership",
+    "ownLand": "Own Land",
+    "leaseLand": "Lease Land",
+    "landArea": "Land Area (Acres/Hectares)",
+    "farmerCategory": "Farmer Category",
+    "marginal": "Marginal Farmer",
+    "small": "Small Farmer",
+    "medium": "Medium Farmer",
+    "large": "Large Farmer",
+    "primaryCrop": "Primary Crop",
+    "secondaryCrop": "Secondary Crop",
+    "irrigationType": "Irrigation Type",
+    "rainfed": "Rainfed",
+    "canal": "Canal",
+    "borewell": "Borewell",
+    "drip": "Drip Irrigation",
+    "annualIncome": "Annual Farm Income (₹)",
+    "needTractor": "Do you own a tractor?",
+    "needMachinery": "Do you need farm machinery?",
+    "needIrrigation": "Do you need irrigation support?",
+    "needSolar": "Do you need solar pumps?",
+    "needLoan": "Do you need crop loans?",
+    "needInsurance": "Do you need crop insurance?",
+    "yes": "Yes",
+    "no": "No",
+    "aiAdvisor": "AI Scheme Advisor"
+  },
+  "login": {
+    "farmerTitle": "Farmer Portal Login",
+    "fpoTitle": "FPO Portal Login",
+    "buyerTitle": "Buyer Marketplace Login",
+    "govTitle": "Gov Command Center Login",
+    "subtitle": "Secure access to your personal SmartAg dashboard.",
+    "registeredName": "Registered Name",
+    "enterName": "Enter your name",
+    "password": "Password",
+    "loginBtn": "Login Securely",
+    "createBtn": "Create Account",
+    "back": "Back to Platform",
+    "toggleLogin": "Already have an account? Login",
+    "toggleRegister": "Create an Account",
+    "errorEmpty": "Please enter both your name and password."
+  },
+  "buyer": {
+    "title": "Buyer Portal",
+    "menu": {
+      "marketplace": "Crop Marketplace",
+      "bids": "My Active Bids",
+      "calendar": "Procurement Calendar",
+      "history": "Completed History",
+      "profile": "Merchant Profile"
+    },
+    "marketplace": {
+      "title": "Aggregated Crop Marketplace",
+      "subtitle": "Bid on large verified crop volumes consolidated from local regional farmers collectives.",
+      "search": "Search crop or FPO name...",
+      "crop": "Crop:",
+      "bulkLot": "Bulk Lot",
+      "lot": "Lot",
+      "pickup": "Pickup Location:",
+      "targetDate": "Target date:",
+      "nearestFpos": "Nearest Sourcing FPOs:",
+      "placeBid": "Place Bid Lot"
+    },
+    "bids": {
+      "title": "Active Procurement Bids",
+      "subtitle": "Track real-time bid positions and rankings for published regional FPO crop lots.",
+      "rankPrefix": "Rank",
+      "of": "of",
+      "bidders": "Bidders",
+      "totalAmount": "Total Bid Amount",
+      "myBidRate": "My Bid Rate",
+      "highestBid": "Highest Bid",
+      "status": "Auction status",
+      "openBidding": "Open bidding",
+      "highestBidder": "Highest Bidder",
+      "increaseBid": "Increase Bid"
+    }
+  },
+  "fpo": {
+    "title": "FPO Collective",
+    "menu": {
+      "requests": "Farmer Requests",
+      "grouping": "AI Grouping Run",
+      "management": "Group Management",
+      "marketplace": "Lot Marketplace",
+      "buyers": "Buyers Directory",
+      "logistics": "Logistics Router",
+      "analytics": "Analytics Metrics"
+    }
+  },
+  "government": {
+    "title": "State Monitor Panel",
+    "menu": {
+      "command": "Command Center",
+      "supply": "Supply Stability Index",
+      "market": "Market Intel",
+      "risk": "Risk Monitoring",
+      "earlyWarning": "Early Warning alerts",
+      "fpoAnalytics": "FPO Analytics",
+      "policy": "Policy Insights",
+      "reports": "Intervention Reports"
+    }
+  },
+  "home": {
+    "hero": {
+      "welcome": "Welcome to SmartAgOps",
+      "title1": "AI-Powered",
+      "title2": "Agricultural",
+      "title3": "Intelligence Platform",
+      "subtitle": "Helping farmers, FPOs, buyers, and governments make profitable decisions using real-time market intelligence, weather forecasts, and AI recommendations.",
+      "farmerLogin": "Farmer Login",
+      "fpoLogin": "FPO Login",
+      "buyerLogin": "Buyer Login",
+      "govLogin": "Govt Login"
+    },
+    "capabilities": {
+      "title": "Platform Capabilities",
+      "subtitle": "Everything you need to modernize agricultural supply chains and maximize farmer income.",
+      "f1Title": "Mandi Intelligence",
+      "f1Desc": "Real-time spot prices across regional mandis with predictive trend analysis.",
+      "f2Title": "Weather Forecasting",
+      "f2Desc": "Hyper-local 7-day weather risk assessment tailored for your specific crop.",
+      "f3Title": "Collective Selling",
+      "f3Desc": "Smart grouping engine connects farmers to FPOs for maximized bargaining power.",
+      "f4Title": "Government Command Center",
+      "f4Desc": "Statewide crop indices, supply chain mapping, and price stability monitoring."
+    },
+    "healthScanner": {
+      "title": "Instant Crop Health Diagnosis",
+      "desc": "Worried about a diseased leaf? Use our TensorFlow-powered Crop Health Scanner to get an instant diagnosis, treatment plan, and cost estimate without creating an account."
+    }
   }
 }

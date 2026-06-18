@@ -28,126 +28,41 @@ def get_model():
             print(f"Warning: Class indices not found at {CLASS_INDICES_PATH}")
     return _model, _class_names
 
-TRANSLATIONS = {
-    "English": {
-        "diseases": [
-            {
-                "disease": "Early Blight (Leaf Spot)",
-                "severity": "Medium",
-                "treatment": "Spray Copper Oxychloride 2g/L.",
-                "recoveryTime": "5-7 Days",
-                "cost": 250,
-                "dealer": "Kisan Seva Kendra, 2km"
-            },
-            {
-                "disease": "Bacterial Blight",
-                "severity": "High",
-                "treatment": "Spray Streptocycline 1g/10L.",
-                "recoveryTime": "10-14 Days",
-                "cost": 350,
-                "dealer": "AgriTech Solutions, 5km"
-            },
-            {
-                "disease": "Nutrient Deficiency (Nitrogen)",
-                "severity": "Low",
-                "treatment": "Apply Urea 50kg/acre.",
-                "recoveryTime": "3-5 Days",
-                "cost": 150,
-                "dealer": "Local Cooperative Society, 1km"
-            }
-        ]
-    },
-    "Hindi": {
-        "diseases": [
-            {
-                "disease": "अगेती झुलसा (लीफ स्पॉट)",
-                "severity": "मध्यम",
-                "treatment": "कॉपर ऑक्सीक्लोराइड 2 ग्राम/लीटर का छिड़काव करें।",
-                "recoveryTime": "5-7 दिन",
-                "cost": 250,
-                "dealer": "किसान सेवा केंद्र, 2 किमी"
-            },
-            {
-                "disease": "बैक्टीरियल ब्लाइट",
-                "severity": "उच्च",
-                "treatment": "स्ट्रेप्टोसाइक्लिन 1 ग्राम/10 लीटर का छिड़काव करें।",
-                "recoveryTime": "10-14 दिन",
-                "cost": 350,
-                "dealer": "एग्रीटेक सॉल्यूशंस, 5 किमी"
-            },
-            {
-                "disease": "पोषक तत्वों की कमी (नाइट्रोजन)",
-                "severity": "कम",
-                "treatment": "50 किग्रा/एकड़ यूरिया डालें।",
-                "recoveryTime": "3-5 दिन",
-                "cost": 150,
-                "dealer": "स्थानीय सहकारी समिति, 1 किमी"
-            }
-        ]
-    },
-    "Tamil": {
-        "diseases": [
-            {
-                "disease": "முன்கூட்டிய கருகல் (இலை புள்ளி)",
-                "severity": "நடுத்தரம்",
-                "treatment": "காப்பர் ஆக்சி குளோரைடு 2கி/லி தெளிக்கவும்.",
-                "recoveryTime": "5-7 நாட்கள்",
-                "cost": 250,
-                "dealer": "கிசான் சேவா கேந்திரா, 2 கி.மீ"
-            },
-            {
-                "disease": "பாக்டீரியா கருகல்",
-                "severity": "அதிகம்",
-                "treatment": "ஸ்ட்ரெப்டோசைக்ளின் 1கி/10லி தெளிக்கவும்.",
-                "recoveryTime": "10-14 நாட்கள்",
-                "cost": 350,
-                "dealer": "அக்ரிடெக் சொல்யூஷன்ஸ், 5 கி.மீ"
-            },
-            {
-                "disease": "சத்து குறைபாடு (நைட்ரஜன்)",
-                "severity": "குறைவு",
-                "treatment": "ஒரு ஏக்கருக்கு 50 கிலோ யூரியா இடுங்கள்.",
-                "recoveryTime": "3-5 நாட்கள்",
-                "cost": 150,
-                "dealer": "உள்ளூர் கூட்டுறவு சங்கம், 1 கி.மீ"
-            }
-        ]
-    }
-}
-
 def map_class_to_translation(class_name: str, language: str) -> Dict[str, Any]:
-    lang_key = language if language in TRANSLATIONS else "English"
-    diseases = TRANSLATIONS[lang_key]["diseases"]
+    # Clean up the class name (e.g., 'Tomato___Early_blight' -> 'Tomato - Early blight')
+    clean_name = class_name.replace("___", " - ").replace("__", " ").replace("_", " ")
+    
+    # Basic generic template
+    result = {
+        "disease": clean_name,
+        "severity": "Medium",
+        "treatment": "Please consult a local agronomist for specific treatment.",
+        "recoveryTime": "7-10 Days",
+        "cost": 200,
+        "dealer": "Local Cooperative Society"
+    }
     
     class_name_lower = class_name.lower()
     
-    # Simple heuristic to map predicted class to our predefined translations
-    if "early_blight" in class_name_lower or "leaf_spot" in class_name_lower or "leaf spot" in class_name_lower:
-        return diseases[0].copy() # Early Blight
+    if "healthy" in class_name_lower:
+        result["severity"] = "None"
+        result["treatment"] = "No treatment required. Maintain current schedule."
+        result["recoveryTime"] = "N/A"
+        result["cost"] = 0
+    elif "early blight" in class_name_lower or "late blight" in class_name_lower or "leaf spot" in class_name_lower or "leaf_spot" in class_name_lower:
+        result["severity"] = "High"
+        result["treatment"] = "Apply appropriate fungicide (e.g., Copper Oxychloride 2g/L)."
+        result["cost"] = 250
     elif "bacterial" in class_name_lower:
-        return diseases[1].copy() # Bacterial Blight
-    elif "healthy" in class_name_lower:
-        return {
-            "disease": "Healthy Plant" if lang_key == "English" else ("स्वस्थ पौधा" if lang_key == "Hindi" else "ஆரோக்கியமான செடி"),
-            "severity": "None",
-            "treatment": "No treatment required. Maintain current schedule." if lang_key == "English" else ("किसी उपचार की आवश्यकता नहीं है।" if lang_key == "Hindi" else "சிகிச்சை தேவையில்லை."),
-            "recoveryTime": "N/A",
-            "cost": 0,
-            "dealer": "N/A"
-        }
-    else:
-        # Fallback for other diseases
-        generic_disease = diseases[2].copy() # Using Nutrient Deficiency as a fallback structure
-        if lang_key == "English":
-            generic_disease["disease"] = class_name.replace("_", " ")
-            generic_disease["treatment"] = "Please consult a local agronomist."
-        elif lang_key == "Hindi":
-            generic_disease["disease"] = class_name.replace("_", " ")
-            generic_disease["treatment"] = "कृपया स्थानीय कृषिविज्ञानी से सलाह लें।"
-        else:
-            generic_disease["disease"] = class_name.replace("_", " ")
-            generic_disease["treatment"] = "உள்ளூர் விவசாய நிபுணரை அணுகவும்."
-        return generic_disease
+        result["severity"] = "High"
+        result["treatment"] = "Apply antibacterial sprays like Streptocycline 1g/10L."
+        result["cost"] = 300
+    elif "virus" in class_name_lower:
+        result["severity"] = "Severe"
+        result["treatment"] = "Remove and destroy infected plants. Control insect vectors."
+        result["cost"] = 100
+        
+    return result
 
 def detect_disease(image_bytes: bytes, language: str = "English") -> Dict[str, Any]:
     """
@@ -158,16 +73,23 @@ def detect_disease(image_bytes: bytes, language: str = "English") -> Dict[str, A
     if model is None or class_names is None:
         # Fallback if model isn't trained yet
         print("Model not loaded, falling back to simulated inference.")
-        lang_key = language if language in TRANSLATIONS else "English"
-        result = TRANSLATIONS[lang_key]["diseases"][0].copy()
-        result["confidence"] = 99.9
+        result = {
+            "disease": "Model Not Loaded",
+            "severity": "Unknown",
+            "treatment": "Please wait for model to train.",
+            "recoveryTime": "N/A",
+            "cost": 0,
+            "dealer": "N/A"
+        }
+        result["confidence"] = 0.0
         return result
         
     try:
         # Preprocess the image
         img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
-        img = img.resize((224, 224))
+        img = img.resize((256, 256))
         img_array = tf.keras.preprocessing.image.img_to_array(img)
+        img_array = img_array / 255.0  # Normalize to [0,1] like training
         img_array = np.expand_dims(img_array, axis=0)
         
         # Predict
@@ -184,7 +106,13 @@ def detect_disease(image_bytes: bytes, language: str = "English") -> Dict[str, A
         
     except Exception as e:
         print(f"Error during disease detection inference: {e}")
-        lang_key = language if language in TRANSLATIONS else "English"
-        result = TRANSLATIONS[lang_key]["diseases"][0].copy()
+        result = {
+            "disease": "Analysis Error",
+            "severity": "Unknown",
+            "treatment": "Failed to analyze image.",
+            "recoveryTime": "N/A",
+            "cost": 0,
+            "dealer": "N/A"
+        }
         result["confidence"] = 0.0
         return result

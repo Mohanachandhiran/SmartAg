@@ -116,13 +116,13 @@ export default function Header() {
         {mounted && (
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="p-1.5 rounded-full hover:bg-muted text-muted-foreground transition-colors relative"
+            className="p-1.5 rounded-full hover:bg-muted text-muted-foreground transition-colors relative overflow-hidden"
             title="Toggle Theme"
           >
             {theme === 'dark' ? (
-              <Sun className="w-4 h-4 text-green-800 dark:text-amber-400" />
+              <Sun className="w-4 h-4 text-amber-400 animate-sunrise drop-shadow-[0_0_8px_rgba(251,191,36,0.8)]" />
             ) : (
-              <Moon className="w-4 h-4 text-green-800" />
+              <Moon className="w-4 h-4 text-green-800 animate-moonrise" />
             )}
           </button>
         )}
@@ -170,38 +170,40 @@ export default function Header() {
         </div>
 
         {/* User Profile & Logout */}
-        {mounted && (userName || userRole) ? (
-          <div className="flex items-center gap-3 ml-2 border-l border-border pl-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-800 font-bold text-sm shadow-sm" title="Profile">
-                {(userName || userRole || 'U').charAt(0).toUpperCase()}
+        {pathname !== '/' && (
+          mounted && userName && userRole ? (
+            <div className="flex items-center gap-3 ml-2 border-l border-border pl-3">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-800 font-bold text-sm shadow-sm" title="Profile">
+                  {userName.charAt(0).toUpperCase()}
+                </div>
+                <div className="flex-col hidden sm:flex">
+                  <span className="text-xs font-bold text-foreground">{userName}</span>
+                  <span className="text-[10px] text-muted-foreground capitalize">{userRole.toLowerCase()}</span>
+                </div>
               </div>
-              <div className="flex-col hidden sm:flex">
-                <span className="text-xs font-bold text-foreground">{userName || 'User'}</span>
-                <span className="text-[10px] text-muted-foreground capitalize">{userRole?.toLowerCase() || 'Guest'}</span>
-              </div>
+              <button 
+                onClick={() => {
+                  localStorage.removeItem('smartag_user');
+                  localStorage.removeItem('smartag_token');
+                  router.push('/');
+                }}
+                className="p-1.5 rounded-full hover:bg-red-50 text-muted-foreground hover:text-red-600 transition-colors relative"
+                title="Logout"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
             </div>
-            <button 
-              onClick={() => {
-                localStorage.removeItem('smartag_user');
-                localStorage.removeItem('smartag_token');
-                router.push('/');
-              }}
-              className="p-1.5 rounded-full hover:bg-red-50 text-muted-foreground hover:text-red-600 transition-colors relative"
-              title="Logout"
-            >
-              <LogOut className="w-4 h-4" />
-            </button>
-          </div>
-        ) : (
-          <div className="flex items-center gap-2 ml-2 border-l border-border pl-3">
-            <button
-              onClick={() => router.push('/')}
-              className="text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-md px-3 py-1.5 flex items-center transition-colors cursor-pointer"
-            >
-              Login
-            </button>
-          </div>
+          ) : (
+            <div className="flex items-center gap-2 ml-2 border-l border-border pl-3">
+              <button
+                onClick={() => router.push('/')}
+                className="text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-md px-3 py-1.5 flex items-center transition-colors cursor-pointer"
+              >
+                Login
+              </button>
+            </div>
+          )
         )}
       </div>
     </header>

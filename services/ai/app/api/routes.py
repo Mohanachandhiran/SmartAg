@@ -231,5 +231,11 @@ def government_reports(
     return [
         {"id": 1, "name": "Tamil Nadu Weekly Market Report — W23", "date": "2026-06-08", "type": "weekly", "size_mb": 2.4, "region": "Tamil Nadu"},
         {"id": 2, "name": "Tomato Crop Analysis — June 2026", "date": "2026-06-05", "type": "crop", "size_mb": 1.8, "region": "Tamil Nadu"},
-        {"id": 3, "name": "Q2 Regional Risk Assessment", "date": "2026-05-30", "type": "risk", "size_mb": 3.1, "region": "Tamil Nadu"},
     ]
+
+from app.models.schemas import SchemeProfileRequest, SchemeAnalysisResponse
+import scheme_advisor
+
+@router.post("/scheme-advisor", response_model=SchemeAnalysisResponse)
+def scheme_advisor_endpoint(payload: SchemeProfileRequest) -> SchemeAnalysisResponse:
+    return scheme_advisor.analyze_schemes(payload)

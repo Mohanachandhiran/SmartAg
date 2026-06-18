@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 
 // Fix for default marker icon bug in Leaflet + Next.js build
 const createIcon = (color: string) => {
@@ -37,6 +36,12 @@ function RecenterMap({ coords }: { coords: number[] }) {
 }
 
 export default function MapComponent({ userLocation, mandiPoints = [] }: { userLocation?: { lat: number; lng: number } | null, mandiPoints?: LocationPoint[] }) {
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const defaultCenter: [number, number] = [9.9252, 78.1198]; // Madurai default
   const center: [number, number] = userLocation ? [userLocation.lat, userLocation.lng] : defaultCenter;
 
@@ -54,6 +59,8 @@ export default function MapComponent({ userLocation, mandiPoints = [] }: { userL
     }
     return [];
   }, [userLocation, mandiPoints]);
+
+  if (!isMounted) return null;
 
   return (
     <div className="w-full h-full min-h-[450px] rounded-xl overflow-hidden shadow-agri border border-border relative z-0">

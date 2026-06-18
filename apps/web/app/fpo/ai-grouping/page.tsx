@@ -84,7 +84,7 @@ export default function AIGrouping() {
     <div className="max-w-5xl mx-auto flex flex-col gap-6">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-border pb-3">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-border pb-3 bg-card/80 backdrop-blur-md p-6 rounded-3xl border border-border shadow-sm bg-card/80 backdrop-blur-md px-6 py-4 rounded-3xl border border-border inline-block shadow-sm">
         <div>
           <h1 className="text-2xl font-serif font-black text-green-900 flex items-center gap-2">
             <Merge className="w-6 h-6 text-green-700" />

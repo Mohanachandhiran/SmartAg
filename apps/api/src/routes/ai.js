@@ -31,5 +31,6 @@ router.post('/farmer-grouping', forwardToAI('/ai/farmer-grouping'));
 router.post('/buyer-recommendation', forwardToAI('/ai/buyer-recommendation'));
 router.post('/risk-engine', forwardToAI('/ai/risk-engine'));
 router.post('/voice-chat', forwardToAI('/ai/voice-chat'));
+router.post('/scheme-advisor', forwardToAI('/ai/scheme-advisor'));
 
 module.exports = router;

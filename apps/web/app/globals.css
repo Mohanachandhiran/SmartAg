@@ -37,9 +37,23 @@
   --color-data-purple: #6B46C1;
 
   /* Typography */
-  --font-serif: 'Playfair Display', serif;
-  --font-sans: 'DM Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-poppins: var(--font-poppins, 'Poppins');
+  --font-inter: var(--font-inter, 'Inter');
+  --font-noto-sans: var(--font-noto-sans, 'Noto Sans');
+  --font-ibm-plex: var(--font-ibm-plex, 'IBM Plex Sans');
+
+  /* Typography Roles */
+  --font-heading: var(--current-heading, var(--font-poppins)), sans-serif;
+  --font-body: var(--current-body, var(--font-inter)), sans-serif;
+  --font-multilingual: var(--font-noto-sans), sans-serif;
+
+  /* Text Sizes */
+  --text-hero: 56px;
+  --text-page: 32px;
+  --text-section: 24px;
+  --text-card: 18px;
+  --text-body: 14px;
+  --text-small: 12px;
 
   /* Theme mappings for standard utilities */
   --color-background: var(--background);
@@ -63,45 +77,72 @@
 }
 
 :root {
-  --background: #FAF7F2;
+  --background: transparent;
   --foreground: #1C1510;
   --card: #FFFFFF;
   --card-foreground: #1C1510;
   --primary: #1A4D2E;
-  --primary-foreground: #FAF7F2;
+  --primary-foreground: #FFFFFF;
   --accent: #F5A623;
   --accent-foreground: #1C1510;
   --muted: #F2EBE0;
   --muted-foreground: #6B4F35;
   --border: #C4A882;
   --surface-warm: #FAF7F2;
+  --bg-opacity: rgba(255, 255, 255, 0.1);
+  --bg-image: url('/light_agri_bg.png');
 }
 
 .dark {
-  --background: #0A130E;
+  --background: transparent; /* Deep Navy */
   --foreground: #F2EBE0;
-  --card: #132E1C;
+  --card: #111827; /* Dark cards #111827 */
   --card-foreground: #FAF7F2;
-  --primary: #2D6B42;
-  --primary-foreground: #FAF7F2;
-  --accent: #F7B84B;
+  --primary: #00E5FF; /* Cyan/Neon Green logic for graphs/icons */
+  --primary-foreground: #0A1929;
+  --accent: #00E5FF; /* Cyan glowing accents */
   --accent-foreground: #0D1F15;
   --muted: #1A4D2E;
-  --muted-foreground: #C4A882;
-  --border: #1A4D2E;
-  --surface-warm: #0A130E;
+  --muted-foreground: #8AB4F8; /* Light blue tech accents */
+  --border: #064E3B; /* Dark Emerald */
+  --surface-warm: #0F172A;
+  --bg-opacity: rgba(10, 25, 41, 0.1);
+  --bg-image: url('/dark_mode_bg.png');
 }
 
 body {
-  background: linear-gradient(135deg, var(--background) 0%, var(--muted) 150%);
+  background: linear-gradient(var(--bg-opacity), var(--bg-opacity)), var(--bg-image);
+  background-size: cover;
   background-attachment: fixed;
+  background-position: center;
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   min-height: 100vh;
+  transition: background 0.8s ease-in-out, color 0.5s ease;
+}
+
+@keyframes sunrise {
+  0% { transform: translateY(10px) scale(0.8); opacity: 0; filter: brightness(0); }
+  50% { transform: translateY(-5px) scale(1.1); filter: brightness(1.5); }
+  100% { transform: translateY(0) scale(1); opacity: 1; filter: brightness(1); }
+}
+
+@keyframes moonrise {
+  0% { transform: translateY(10px) scale(0.8); opacity: 0; filter: drop-shadow(0 0 0px cyan); }
+  50% { transform: translateY(-5px) scale(1.1); filter: drop-shadow(0 0 10px cyan); }
+  100% { transform: translateY(0) scale(1); opacity: 1; filter: drop-shadow(0 0 5px cyan); }
+}
+
+.animate-sunrise {
+  animation: sunrise 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-moonrise {
+  animation: moonrise 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
+  font-family: var(--font-heading);
 }
 
 code, pre, .mono {
