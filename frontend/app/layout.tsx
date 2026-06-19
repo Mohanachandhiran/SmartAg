@@ -19,7 +19,7 @@ const poppins = Poppins({
 
 const notoSans = Noto_Sans({
   variable: '--font-noto-sans',
-  subsets: ['latin', 'devanagari', 'tamil'],
+  subsets: ['latin', 'devanagari'],
   weight: ['400', '500', '600', '700'],
 });
 
