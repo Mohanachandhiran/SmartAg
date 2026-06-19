@@ -126,7 +126,8 @@ export default function CropHealthScanner() {
       formData.append("file", selectedFile);
       formData.append("language", lang);
 
-      const response = await fetch("http://localhost:8000/ai/disease-detect", {
+      const aiBaseUrl = process.env.NEXT_PUBLIC_FASTAPI_API_URL || "http://localhost:8000";
+      const response = await fetch(`${aiBaseUrl}/ai/disease-detect`, {
         method: "POST",
         body: formData,
       });

@@ -45,9 +45,13 @@ export default function AIAdvisor() {
 
     const fetchAdvice = async () => {
       try {
+        const token = localStorage.getItem('smartag_token');
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/ai/selling-recommendation`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+          },
           body: JSON.stringify({
             farmId: selectedFarm.id,
             crop: selectedFarm.cropType,

@@ -39,11 +39,15 @@ export default function SchemeFinderWizard({ isOpen, onClose }: { isOpen: boolea
     setLoading(true);
     setStep(5); // Loading state
     try {
+      const token = localStorage.getItem('smartag_token');
       // Ensure we explicitly pass the UI language to the AI
       const payload = { ...formData, language: language };
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/ai/scheme-advisor`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        },
         body: JSON.stringify(payload)
       });
       const data = await res.json();

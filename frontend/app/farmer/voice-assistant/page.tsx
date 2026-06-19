@@ -98,9 +98,13 @@ export default function VoiceAssistant() {
     setTypingInput('');
 
     try {
+      const token = localStorage.getItem('smartag_token');
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/ai/voice-chat`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        },
         body: JSON.stringify({
           message: text,
           language: voiceLang,
