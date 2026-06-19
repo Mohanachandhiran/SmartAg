@@ -1,20 +1,33 @@
 import os
 import json
 import numpy as np
-import tensorflow as tf
+# Make tensorflow optional for memory-constrained environments like Render Free Tier
+try:
+    import tensorflow as tf
+    _tf_available = True
+except ImportError:
+    _tf_available = False
+    tf = None
+
 from PIL import Image
 import io
 from typing import Dict, Any
 
+from pathlib import Path
+
 # Load model globally to avoid reloading on each request
-MODEL_PATH = "crop_disease_model.h5"
-CLASS_INDICES_PATH = "class_indices.json"
+_CURRENT_DIR = Path(__file__).resolve().parent
+MODEL_PATH = str(_CURRENT_DIR / "crop_disease_model.h5")
+CLASS_INDICES_PATH = str(_CURRENT_DIR / "class_indices.json")
 
 _model = None
 _class_names = None
 
 def get_model():
     global _model, _class_names
+    if not _tf_available:
+        print("TensorFlow is not available. Skipping model load.")
+        return None, None
     if _model is None:
         if os.path.exists(MODEL_PATH):
             _model = tf.keras.models.load_model(MODEL_PATH)
@@ -71,12 +84,13 @@ def detect_disease(image_bytes: bytes, language: str = "English") -> Dict[str, A
     model, class_names = get_model()
     
     if model is None or class_names is None:
-        # Fallback if model isn't trained yet
+        # Fallback if model isn't trained or tensorflow is missing
         print("Model not loaded, falling back to simulated inference.")
+        msg = "TensorFlow is not installed in this environment." if not _tf_available else "Please wait for model to train."
         result = {
-            "disease": "Model Not Loaded",
+            "disease": "Model Not Active",
             "severity": "Unknown",
-            "treatment": "Please wait for model to train.",
+            "treatment": msg,
             "recoveryTime": "N/A",
             "cost": 0,
             "dealer": "N/A"

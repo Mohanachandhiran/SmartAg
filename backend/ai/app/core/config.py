@@ -3,8 +3,27 @@ from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-ROOT_DIR = Path(__file__).resolve().parents[4]
-DATASETS_DIR = ROOT_DIR / "datasets"
+# Resolve ROOT_DIR and DATASETS_DIR robustly across local, Docker, and Render deployments
+def _resolve_paths():
+    current = Path(__file__).resolve()
+    # 1. Try standard development structure (5 levels up)
+    try:
+        dev_root = current.parents[4]
+        if (dev_root / "datasets").exists():
+            return dev_root, dev_root / "datasets"
+    except IndexError:
+        pass
+
+    # 2. Walk up parent directories to find "datasets"
+    for parent in current.parents:
+        if (parent / "datasets").exists():
+            return parent, parent / "datasets"
+
+    # 3. Fallback default
+    fallback_root = current.parents[2] # backend/ai
+    return fallback_root, fallback_root / "datasets"
+
+ROOT_DIR, DATASETS_DIR = _resolve_paths()
 
 
 class Settings(BaseSettings):
