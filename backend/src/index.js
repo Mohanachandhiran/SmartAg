@@ -13,8 +13,25 @@ const PORT = process.env.PORT || 5000;
 
 // Setup Middleware
 app.use(helmet());
+// Setup CORS supporting local development and deployed frontend (like Vercel)
+const allowedOrigins = ['http://localhost:3000', 'http://web:3000'];
+if (process.env.FRONTEND_URL) {
+  allowedOrigins.push(...process.env.FRONTEND_URL.split(',').map(url => url.trim()));
+}
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://web:3000'],
+  origin: (origin, callback) => {
+    if (
+      !origin || 
+      allowedOrigins.includes(origin) || 
+      origin.endsWith('.vercel.app') || 
+      process.env.NODE_ENV !== 'production'
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 app.use(express.json());
