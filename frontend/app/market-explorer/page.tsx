@@ -233,7 +233,7 @@ export default function MarketExplorer() {
   useEffect(() => {
     const fetchBaseData = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/mandi-analytics/commodities');
+        const res = await fetch('https://smartag-api-1siv.onrender.com/api/mandi-analytics/commodities');
         if (res.ok) {
           const data = await res.json();
           const extendedData = [...data];
@@ -371,8 +371,8 @@ export default function MarketExplorer() {
     const fetchDetails = async () => {
       setLoadingDetails(true);
       try {
-        const urlForecast = `http://localhost:5000/api/mandi-analytics/forecast?commodity=${selectedCommodity}&market=${selectedMarket.name}&state=${selectedMarket.state}`;
-        const urlRisk = `http://localhost:5000/api/mandi-analytics/risk?commodity=${selectedCommodity}&market=${selectedMarket.name}&state=${selectedMarket.state}`;
+        const urlForecast = `https://smartag-api-1siv.onrender.com/api/mandi-analytics/forecast?commodity=${selectedCommodity}&market=${selectedMarket.name}&state=${selectedMarket.state}`;
+        const urlRisk = `https://smartag-api-1siv.onrender.com/api/mandi-analytics/risk?commodity=${selectedCommodity}&market=${selectedMarket.name}&state=${selectedMarket.state}`;
         
         const [resForecast, resRisk] = await Promise.all([
           fetch(urlForecast),
@@ -458,7 +458,7 @@ export default function MarketExplorer() {
   }, []);
 
   const handleDownloadPDF = () => {
-    const url = `http://localhost:5000/api/mandi-analytics/reports/pdf?commodity=${selectedCommodity}&report_type=full&state=Tamil+Nadu`;
+    const url = `https://smartag-api-1siv.onrender.com/api/mandi-analytics/reports/pdf?commodity=${selectedCommodity}&report_type=full&state=Tamil+Nadu`;
     window.open(url, '_blank');
   };
 

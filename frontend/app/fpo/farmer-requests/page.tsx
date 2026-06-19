@@ -14,7 +14,7 @@ export default function FarmerRequests() {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/fpo/farmer-requests`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/fpo/farmer-requests`);
         if (res.ok) {
           const data = await res.json();
           setRequests(data);

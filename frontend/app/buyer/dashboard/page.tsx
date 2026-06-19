@@ -14,7 +14,7 @@ export default function BuyerDashboard() {
   useEffect(() => {
     const fetchBuyerDashboard = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/buyer/dashboard`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/buyer/dashboard`);
         if (res.ok) {
           const json = await res.json();
           setData(json);

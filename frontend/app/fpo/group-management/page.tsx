@@ -41,7 +41,7 @@ export default function GroupManagement() {
     const fetchFarmers = async () => {
       try {
         const token = localStorage.getItem('smartag_token');
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/fpo/all-farmers`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/fpo/all-farmers`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.ok) {

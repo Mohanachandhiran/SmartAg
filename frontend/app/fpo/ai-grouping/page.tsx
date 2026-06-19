@@ -13,7 +13,7 @@ export default function AIGrouping() {
   const runGrouping = async () => {
     setRunning(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/fpo/ai-grouping`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/fpo/ai-grouping`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
       });
@@ -51,7 +51,7 @@ export default function AIGrouping() {
 
   const handleApprove = async (group: any) => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/fpo/groups/create-from-ai`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/fpo/groups/create-from-ai`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

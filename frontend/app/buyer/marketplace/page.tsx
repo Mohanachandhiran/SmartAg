@@ -33,7 +33,7 @@ export default function BuyerMarketplace() {
   useEffect(() => {
     const fetchMarketplace = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/buyer/marketplace`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/buyer/marketplace`);
         if (res.ok) {
           const data = await res.json();
           if (data && data.length > 0) {
@@ -73,7 +73,7 @@ export default function BuyerMarketplace() {
     }
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/buyer/bid`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/buyer/bid`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

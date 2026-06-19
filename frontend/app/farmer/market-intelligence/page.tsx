@@ -57,7 +57,7 @@ export default function MarketIntelligence() {
 
     const fetchPrices = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/market/prices`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/market/prices`);
         if (res.ok) {
           const data = await res.json();
           setPrices(data);
@@ -81,7 +81,7 @@ export default function MarketIntelligence() {
     const fetchRegisteredCrops = async () => {
       try {
         const token = localStorage.getItem('smartag_token');
-        const cRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/farmer/crops`, {
+        const cRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/farmer/crops`, {
           headers: { ...(token ? { 'Authorization': `Bearer ${token}` } : {}) }
         });
         if (cRes.ok) {

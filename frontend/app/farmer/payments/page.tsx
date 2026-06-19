@@ -24,7 +24,7 @@ export default function Payments() {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/farmer/payments`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/farmer/payments`);
         if (res.ok) {
           const data = await res.json();
           setTransactions(data);

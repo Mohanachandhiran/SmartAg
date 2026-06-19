@@ -24,7 +24,7 @@ export default function FarmerDashboard() {
     const fetchDashboard = async () => {
       try {
         const token = localStorage.getItem('smartag_token');
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/farmer/dashboard`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/farmer/dashboard`, {
           headers: { ...(token ? { 'Authorization': `Bearer ${token}` } : {}) }
         });
         if (res.ok) {
@@ -33,14 +33,14 @@ export default function FarmerDashboard() {
         }
         
         // Fetch real weather using Madurai default coords
-        const wRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/weather?lat=9.9252&lng=78.1198`);
+        const wRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/weather?lat=9.9252&lng=78.1198`);
         if (wRes.ok) {
           const wJson = await wRes.json();
           setWeatherData(wJson);
         }
 
         // Fetch crop registrations
-        const cRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/farmer/crops`, {
+        const cRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/farmer/crops`, {
           headers: { ...(token ? { 'Authorization': `Bearer ${token}` } : {}) }
         });
         if (cRes.ok) {

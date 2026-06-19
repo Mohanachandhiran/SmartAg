@@ -99,7 +99,7 @@ export default function VoiceAssistant() {
 
     try {
       const token = localStorage.getItem('smartag_token');
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/ai/voice-chat`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/ai/voice-chat`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

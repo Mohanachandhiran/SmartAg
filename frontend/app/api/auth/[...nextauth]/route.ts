@@ -12,7 +12,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials?.phone || !credentials?.otp) return null;
 
-        const apiEndpoint = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/auth/login`;
+        const apiEndpoint = `${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/auth/login`;
 
         try {
           const res = await fetch(apiEndpoint, {

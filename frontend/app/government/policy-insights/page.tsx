@@ -12,7 +12,7 @@ export default function PolicyInsights() {
   useEffect(() => {
     const fetchPolicyBrief = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/government/policy-insights`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/government/policy-insights`);
         if (res.ok) {
           const data = await res.json();
           setInsights(data);

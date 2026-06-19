@@ -16,7 +16,7 @@ export default function AIAdvisor() {
   useEffect(() => {
     const fetchFarms = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/farmer/farms`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/farmer/farms`);
         if (res.ok) {
           const data = await res.json();
           setFarms(data);
@@ -46,7 +46,7 @@ export default function AIAdvisor() {
     const fetchAdvice = async () => {
       try {
         const token = localStorage.getItem('smartag_token');
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/ai/selling-recommendation`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/ai/selling-recommendation`, {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',

@@ -18,7 +18,7 @@ export default function FpoAnalytics() {
   useEffect(() => {
     const fetchFpoAnalytics = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/government/fpo-analytics`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/government/fpo-analytics`);
         if (res.ok) {
           const data = await res.json();
           setFpos(data);

@@ -20,8 +20,8 @@ export default function CollectiveSelling() {
         const headers: Record<string, string> = token ? { 'Authorization': `Bearer ${token}` } : {};
         
         const [groupsRes, cropsRes] = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/fpo/groups`),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/farmer/crops`, { headers })
+          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/fpo/groups`),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/farmer/crops`, { headers })
         ]);
 
         if (groupsRes.ok) {
@@ -93,7 +93,7 @@ export default function CollectiveSelling() {
     if (!selectedGroup) return;
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/farmer/collective-selling/join`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/farmer/collective-selling/join`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

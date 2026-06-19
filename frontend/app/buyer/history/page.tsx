@@ -12,7 +12,7 @@ export default function BuyerHistory() {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/buyer/history`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/buyer/history`);
         if (res.ok) {
           const data = await res.json();
           setHistory(data);

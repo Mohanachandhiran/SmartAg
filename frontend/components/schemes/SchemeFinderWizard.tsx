@@ -42,7 +42,7 @@ export default function SchemeFinderWizard({ isOpen, onClose }: { isOpen: boolea
       const token = localStorage.getItem('smartag_token');
       // Ensure we explicitly pass the UI language to the AI
       const payload = { ...formData, language: language };
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/ai/scheme-advisor`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/ai/scheme-advisor`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

@@ -24,7 +24,7 @@ export default function FpoDashboard() {
   useEffect(() => {
     const fetchFpoDashboard = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/fpo/dashboard`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/fpo/dashboard`);
         if (res.ok) {
           const json = await res.json();
           setData(json);
@@ -32,7 +32,7 @@ export default function FpoDashboard() {
 
         // Fetch logistics weather
         try {
-          const wRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/weather?lat=9.9252&lng=78.1198`);
+          const wRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/weather?lat=9.9252&lng=78.1198`);
           if (wRes.ok) {
             setLogisticsWeather(await wRes.json());
           }

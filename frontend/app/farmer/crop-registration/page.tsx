@@ -67,7 +67,7 @@ export default function CropRegistration() {
     setRequestId(null);
     try {
       const token = localStorage.getItem('smartag_token');
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/farmer/crops`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/farmer/crops`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export default function CropRegistration() {
     setDecisionLoading(true);
     try {
       const token = localStorage.getItem('smartag_token');
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/farmer/crops/${requestId}/decision`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/farmer/crops/${requestId}/decision`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

@@ -13,7 +13,7 @@ export default function RiskMonitoring() {
   useEffect(() => {
     const fetchRiskMatrix = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/government/risk-monitoring`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://smartag-api-1siv.onrender.com/api'}/government/risk-monitoring`);
         if (res.ok) {
           const data = await res.json();
           setMatrix(data);
