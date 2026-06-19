@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { Landmark, ShieldAlert, Award, TrendingUp, AlertTriangle, CloudLightning, Activity, BarChart2, ShieldCheck, PieChart, Info, Map as MapIcon, Box, ShoppingCart } from 'lucide-react';
+import { Landmark, ShieldAlert, Award, TrendingUp, AlertTriangle, CloudLightning, Activity, BarChart2, ShieldCheck, PieChart, Info, Map as MapIcon, Box, ShoppingCart, Scale } from 'lucide-react';
 import { useLanguage } from '@/components/shared/LanguageContext';
 
 const MapComponent = dynamic(() => import('@/components/maps/MapComponent'), {
