@@ -152,7 +152,7 @@ export default function MarketIntelligence() {
     name: p.mandiName,
     lat: p.lat,
     lng: p.lng,
-    type: 'mandi',
+    type: 'mandi' as const,
     distance: p.distance
   })).filter(p => p.lat && p.lng);
 
