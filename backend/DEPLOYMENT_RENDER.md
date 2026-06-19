@@ -93,9 +93,9 @@ Next, deploy the primary Express API server.
 ## 🌐 Step 4: Connecting the Frontend
 Once both backend services are deployed and running:
 
-1. Copy the URL of your **Express API** service (e.g., `https://smartag-api.onrender.com`).
+1. Copy the URL of your **Express API** service (e.g., `https://smartag-api-1siv.onrender.com`).
 2. When deploying your frontend application (e.g., Next.js on Vercel or Render):
-   - Set the environment variable `NEXT_PUBLIC_API_URL` to `https://smartag-api.onrender.com/api`.
+   - Set the environment variable `NEXT_PUBLIC_API_URL` to `https://smartag-api-1siv.onrender.com/api`.
    - Set `NEXTAUTH_SECRET` to your secure signing string.
 
 ---

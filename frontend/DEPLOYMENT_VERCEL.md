@@ -55,7 +55,7 @@ Expand the **Environment Variables** section and add the following keys:
 
 | Key | Value | Description |
 | :--- | :--- | :--- |
-| `NEXT_PUBLIC_API_URL` | `https://smartag-api.onrender.com/api` | The URL of your Express backend API (deployed on Render). |
+| `NEXT_PUBLIC_API_URL` | `https://smartag-api-1siv.onrender.com/api` | The URL of your Express backend API (deployed on Render). |
 | `NEXTAUTH_SECRET` | *[Paste the secret you generated above]* | Your cryptographically secure random string. |
 | `NEXTAUTH_URL` | `https://your-project-name.vercel.app` | The production URL of your frontend. *(Vercel will generate this preview link when importing, or you can update it after deployment)* |
 | `OPENWEATHER_API_KEY` | `a003033829d57cf4ba741daff83dcbb6` | Your OpenWeather API key. |
