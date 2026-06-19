@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Setup Middleware
-app.use(helmet());
+app.use(helmet({ crossOriginResourcePolicy: false }));
 // Setup CORS supporting local development and deployed frontend (like Vercel)
 const allowedOrigins = ['http://localhost:3000', 'http://web:3000'];
 if (process.env.FRONTEND_URL) {
